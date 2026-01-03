@@ -3,12 +3,12 @@ import {
   createTask,
   deleteTask,
   getTasks,
-  updateTaskStatus,
+  updateTask,
 } from "../controllers/task.controller.js";
 
 export const taskRoutes = Router();
 
 taskRoutes.post("/", createTask);
 taskRoutes.get("/", getTasks);
-taskRoutes.put("/:id", updateTaskStatus);
+taskRoutes.put("/:id", updateTask);
 taskRoutes.delete("/:id", deleteTask);

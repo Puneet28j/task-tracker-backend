@@ -21,12 +21,30 @@ export const getTasks = async (req: Request, res: Response) => {
   res.json(tasks);
 };
 
-export const updateTaskStatus = async (req: Request, res: Response) => {
-  const task = await Task.findByIdAndUpdate(
-    req.params.id,
-    { status: req.body.status },
-    { new: true }
-  );
+export const updateTask = async (req: Request, res: Response) => {
+  const allowed: string[] = [
+    "title",
+    "description",
+    "priority",
+    "dueDate",
+    "status",
+  ];
+
+  const updateBody: Record<string, any> = {};
+  for (const key of allowed) {
+    if ((req.body as any)[key] !== undefined)
+      updateBody[key] = (req.body as any)[key];
+  }
+
+  // If dueDate is provided as a string, convert to Date
+  if (updateBody.dueDate) {
+    updateBody.dueDate = new Date(updateBody.dueDate);
+  }
+
+  const task = await Task.findByIdAndUpdate(req.params.id, updateBody, {
+    new: true,
+  });
+
   res.json(task);
 };
 
