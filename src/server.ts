@@ -10,5 +10,5 @@ connectDB();
 app.listen(5000, () => {
   console.log("🚀 Server running on port 5000");
   // Start the keep-alive pings
-  startPreventIdle();
+  // startPreventIdle();
 });
